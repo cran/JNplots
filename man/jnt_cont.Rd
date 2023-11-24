@@ -10,6 +10,7 @@ jnt_cont(
   Y,
   m,
   data,
+  alpha.sig = 0.05,
   correlation = NULL,
   res = 100,
   xlab = X,
@@ -35,6 +36,8 @@ Must be the same as the name of the variable in the dataset (see argument “dat
 The variable must be continuous.}
 
 \item{data}{A dataframe containing the variables in the model.}
+
+\item{alpha.sig}{A value representing the significance value (alpha) to be considered.}
 
 \item{correlation}{an optional \link{corStruct} object describing the within-group
 correlation structure. See the documentation of \link{corClasses} for a description of
@@ -78,10 +81,16 @@ Produces a plot showing how changes in the moderator affect the slope and
 significance of the relationship between the dependent variable and the predictor.
 }
 \examples{
+#### non-phylogenetic model ####
 data(lizard_home_range)
 jnt_cont(X='PHR95_overlap_z', Y='hrsize95', m='degree_z',
 data=lizard_home_range, xlab = 'home range overlap 95',
 ylab='home range size 95')
+
+#### phylogenetic model ####
+jnt_cont(X='bio12', Y='back_bright', m='bio1', data=bird_colors,
+correlation=corPagel(1, tree_Furnariidae),xlab='precipitation (mm)',
+ylab='back brightness (scaled)',res=200)
 }
 \references{
 Toyama, K. S. (2023). JNplots: an R package to visualize outputs
